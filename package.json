@@ -1,0 +1,18 @@
+{
+  "name": "my-own-automation-server",
+  "version": "0.0.1",
+  "description": "Implmentation of a simple automation server",
+  "main": "index.js",
+  "engines": {
+    "node": "10.15.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Alessandro Menduni",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
