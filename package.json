@@ -1,12 +1,13 @@
 {
   "name": "my-own-automation-server",
   "version": "0.0.1",
-  "description": "Implmentation of a simple automation server",
+  "description": "Implementation of a simple automation server",
   "main": "src/index.js",
   "engines": {
     "node": "10.15.0"
   },
   "scripts": {
+    "start": "node src/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
