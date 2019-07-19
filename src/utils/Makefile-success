@@ -1,0 +1,9 @@
+.PHONY: all test build
+
+all: test build
+
+test:
+	exit 0
+
+build:
+	exit 0

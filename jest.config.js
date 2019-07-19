@@ -1,4 +1,5 @@
 module.exports = {
+  modulePaths: ['<rootDir>/src', '<rootDir>/test'],
   coverageDirectory: './coverage',
   collectCoverageFrom: [
     '**/src/**/*.js',

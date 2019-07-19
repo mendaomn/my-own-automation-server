@@ -13,16 +13,16 @@ afterAll(() => {
 })
 
 test('should expose GET and POST /pipelines endpoints', async () => {
-  const getResponse = await axios.get('http://localhost:8888/pipelines')
-  const postResponse = await axios.post('http://localhost:8888/pipelines')
+  const getResponse = await api.get('/pipelines')
+  const postResponse = await api.post('/pipelines')
   
   expect(getResponse.status).toBe(200)
   expect(postResponse.status).toBe(200)
 });
 
 test('should expose GET and POST /executions endpoints', async () => {
-  const getResponse = await axios.get('http://localhost:8888/executions')
-  const postResponse = await axios.post('http://localhost:8888/executions')
+  const getResponse = await api.get('/executions')
+  const postResponse = await api.post('/executions')
   
   expect(getResponse.status).toBe(200)
   expect(postResponse.status).toBe(200)
