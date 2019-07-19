@@ -7,6 +7,8 @@ const onServerStart = () => console.log(`Server listening on ${PORT}`)
 
 app.use(express.json())
 
-app.use('*', require('./routes'))
+app.use('/', require('./routes'))
 
-app.listen(PORT, onServerStart)
+const server = app.listen(PORT, onServerStart)
+
+module.exports = server
