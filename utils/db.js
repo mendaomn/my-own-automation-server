@@ -1,6 +1,6 @@
 const generate = require('./generate')
 
-module.exports = {
+const db = () => ({
   
   __db: {},
 
@@ -23,5 +23,12 @@ module.exports = {
 
   getAll() {
     return Array.from(Object.values(this.__db))
+  }
+
+})
+
+module.exports = {
+  create() {
+    return db()
   }
 }
