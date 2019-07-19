@@ -1,6 +1,6 @@
 # my-own-automation-server
 
-Implmentation of a simple automation server
+Implementation of a simple automation server
 
 ## Architecture
 
