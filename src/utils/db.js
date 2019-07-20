@@ -1,5 +1,7 @@
 const generate = require('./generate')
 
+const dbList = {}
+
 const db = () => ({
   
   __db: {},
@@ -23,12 +25,30 @@ const db = () => ({
 
   getAll() {
     return Array.from(Object.values(this.__db))
+  },
+
+  flush() {
+    this.__db = {}
   }
 
 })
 
 module.exports = {
-  create() {
-    return db()
+
+  create(dbName) {
+    const newDB = dbList[dbName] || db()
+
+    dbList[dbName] = newDB
+
+    return newDB
+  },
+
+  list() {
+    return dbList
+  },
+
+  getByName(dbName) {
+    return dbList[dbName]
   }
+  
 }

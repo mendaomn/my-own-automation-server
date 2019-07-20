@@ -1,6 +1,7 @@
-const { create } = require('../utils/db')
+const { create, getByName, ...dbUtility } = require('../utils/db')
+const { run } = require('../utils/make')
 
-const db = create()
+const db = create('executions')
 
 function get(req, res) {
   if (req.query.id) {
@@ -18,6 +19,13 @@ function post(req, res) {
   }
 
   const insertedObj = db.store(obj)
+
+  const pipelinesDb = getByName('pipelines')
+
+  const pipeline = pipelinesDb.getAll()
+    .find(pipeline => pipeline.name === insertedObj.name)
+
+  run(pipeline.file)
 
   res.status(200).send(insertedObj)
 }

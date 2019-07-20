@@ -1,6 +1,10 @@
+const { initPipelinesDB, initExecutionsDB } = require('test-utils')
+
 const {get, post} = require('../executions')
+const make = require('../../utils/make')
 
 jest.mock('../../utils/generate')
+jest.mock('../../utils/make')
 
 const setup = () => {
   const setupObject = {
@@ -8,28 +12,29 @@ const setup = () => {
     res: {
       status: jest.fn(() => setupObject.res),
       send: jest.fn()
-    }
+    },
+    pipelines: initPipelinesDB(),
+    executions: initExecutionsDB()
   }
   return setupObject
 }
 
+beforeEach(() => {
+  jest.resetAllMocks()
+})
+
 test('should allow GET method', () => {
   const {req, res} = setup()
-  const fakePipeline = {
-    name: 'my fake pipeline'
-  }
-  req.body = fakePipeline
+  req.query = {}
+  get(req, res)
 
-  post(req, res)  
-
-  const {req: getReq, res: getRes} = setup()
-  getReq.query = {}
-  get(getReq, getRes)
-
-  expect(getRes.status).toHaveBeenCalledTimes(1)
-  expect(getRes.status).toHaveBeenCalledWith(200)
-  expect(getRes.send).toHaveBeenCalledTimes(1)
-  expect(getRes.send).toHaveBeenCalledWith([expect.objectContaining(fakePipeline)])
+  expect(res.status).toHaveBeenCalledTimes(1)
+  expect(res.status).toHaveBeenCalledWith(200)
+  expect(res.send).toHaveBeenCalledTimes(1)
+  expect(res.send).toHaveBeenCalledWith([{
+    name: 'staging-pipeline',
+    _id: 'uuid'
+  }])
   
   const {req: getWithFilterReq, res: getWithFilterRes} = setup()
   getWithFilterReq.query = { id: 'uuid' }
@@ -38,14 +43,15 @@ test('should allow GET method', () => {
   expect(getWithFilterRes.status).toHaveBeenCalledTimes(1)
   expect(getWithFilterRes.status).toHaveBeenCalledWith(200)
   expect(getWithFilterRes.send).toHaveBeenCalledTimes(1)
-  expect(getWithFilterRes.send).toHaveBeenCalledWith({...fakePipeline, _id: 'uuid'})
+  expect(getWithFilterRes.send).toHaveBeenCalledWith({
+    name: 'staging-pipeline', 
+    _id: 'uuid'
+  })
 });
 
 test('should allow POST method', () => {
   const {req, res} = setup()
-  const fakePipeline = {
-    name: 'my fake pipeline'
-  }
+  const fakePipeline = { name: 'staging-pipeline' }
   req.body = fakePipeline
 
   post(req, res)
@@ -54,4 +60,17 @@ test('should allow POST method', () => {
   expect(res.status).toHaveBeenCalledWith(200)
   expect(res.send).toHaveBeenCalledTimes(1)
   expect(res.send).toHaveBeenCalledWith(expect.objectContaining(fakePipeline))
+});
+
+test('should run pipeline by name', () => {
+  const {req, res, pipelines: db} = setup()
+
+  const fakePipeline = {
+    name: 'staging-pipeline'
+  }
+  req.body = fakePipeline
+  post(req, res)
+
+  expect(make.run).toHaveBeenCalledTimes(1)
+  expect(make.run).toHaveBeenCalledWith(db.getAll()[0].file)
 });

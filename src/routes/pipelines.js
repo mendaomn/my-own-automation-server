@@ -1,6 +1,6 @@
 const { create } = require('../utils/db')
 
-const db = create()
+const db = create('pipelines')
 
 function get(req, res) {
   const pipelines = db.getAll()

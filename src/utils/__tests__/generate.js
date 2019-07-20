@@ -11,8 +11,3 @@ test('should generate different ids every time', () => {
 
   expect(uuids).toEqual(uniq(uuids))
 });
-
-test('should generate makefiles', () => {
-  expect(generate.successMakefile()).toMatchSnapshot()
-  expect(generate.failureMakefile()).toMatchSnapshot()
-});
