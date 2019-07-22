@@ -1,5 +1,7 @@
 # Yet Another CI
 
+[![Build Status](https://travis-ci.org/mendaomn/yaci.svg?branch=master)](https://travis-ci.org/mendaomn/yaci)
+
 In the quest of understanding a bit better the world of Continuous Integration, I started wondering how would a simple CI work. 
 
 What better way to learn something new than to get one's hands dirty and code an automation server from scratch!
