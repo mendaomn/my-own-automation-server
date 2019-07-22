@@ -3,26 +3,16 @@ const path = require('path')
 
 const { create } = require('utils/db')
 
-function id(a){
-  return a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,id)
-}
-
-function successMakefile() {
+function getSuccessMakefile() {
   const SUCCESS_MAKEFILE_PATH = path.join(__dirname, 'Makefile-success')
 
   return fs.readFileSync(SUCCESS_MAKEFILE_PATH)
 }
 
-function failureMakefile() {
+function getFailureMakefile() {
   const FAILURE_MAKEFILE_PATH = path.join(__dirname, 'Makefile-failure')
 
   return fs.readFileSync(FAILURE_MAKEFILE_PATH)
-}
-
-module.exports = {
-  id,
-  successMakefile,
-  failureMakefile
 }
 
 function initPipelinesDB() {
@@ -30,7 +20,7 @@ function initPipelinesDB() {
   db.flush()
   db.store({
     name: 'staging-pipeline',
-    file: successMakefile()
+    file: getSuccessMakefile()
   })
 
   return db
@@ -49,6 +39,6 @@ function initExecutionsDB() {
 module.exports = {
   initPipelinesDB,
   initExecutionsDB,
-  successMakefile,
-  failureMakefile
+  getSuccessMakefile,
+  getFailureMakefile
 }

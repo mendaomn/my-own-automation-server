@@ -49,12 +49,12 @@ test('should allow GET method', () => {
   })
 });
 
-test('should allow POST method', () => {
+test('should allow POST method', async () => {
   const {req, res} = setup()
   const fakePipeline = { name: 'staging-pipeline' }
   req.body = fakePipeline
 
-  post(req, res)
+  await post(req, res)
   
   expect(res.status).toHaveBeenCalledTimes(1)
   expect(res.status).toHaveBeenCalledWith(200)
@@ -62,14 +62,14 @@ test('should allow POST method', () => {
   expect(res.send).toHaveBeenCalledWith(expect.objectContaining(fakePipeline))
 });
 
-test('should run pipeline by name', () => {
+test('should run pipeline by name', async () => {
   const {req, res, pipelines: db} = setup()
 
   const fakePipeline = {
     name: 'staging-pipeline'
   }
   req.body = fakePipeline
-  post(req, res)
+  await post(req, res)
 
   expect(make.run).toHaveBeenCalledTimes(1)
   expect(make.run).toHaveBeenCalledWith(db.getAll()[0].file)

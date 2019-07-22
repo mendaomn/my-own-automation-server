@@ -13,19 +13,22 @@ function get(req, res) {
   }
 }
 
-function post(req, res) {
+async function post(req, res) {
   const obj = {
-    name: req.body.name
+    name: req.body.name,
+    timestamp: new Date().toISOString()
   }
-
-  const insertedObj = db.store(obj)
 
   const pipelinesDb = getByName('pipelines')
 
   const pipeline = pipelinesDb.getAll()
-    .find(pipeline => pipeline.name === insertedObj.name)
+    .find(pipeline => pipeline.name === obj.name)
 
-  run(pipeline.file)
+  const retVal = await run(pipeline.file)
+  const insertedObj = db.store({
+    ...obj,
+    info: retVal
+  })
 
   res.status(200).send(insertedObj)
 }

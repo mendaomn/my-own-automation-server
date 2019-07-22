@@ -1,4 +1,4 @@
-const { create, getByName } = require('../db')
+const { create, getByName, list } = require('../db')
 
 const setup = () => {
   const db = create()
@@ -66,4 +66,16 @@ test('should allow to get db by name', () => {
 
   expect(object1).toBe(db1)
   expect(object2).toBe(db2)
+});
+
+test('should allow to list dbs', () => {
+  const db1 = create('one')
+  const db2 = create('two')
+
+  const dbList = list()
+
+  expect(dbList).toMatchObject({
+    one: db1,
+    two: db2
+  })
 });
