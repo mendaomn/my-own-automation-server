@@ -1,0 +1,39 @@
+yaci-client is a CLI for accessing the yaci-server
+
+Be sure to have a running yaci-server instance
+
+Commands:
+  run ----------------- runs specified pipeline 
+    args:
+      <pipeline-name>   name of the pipeline to run 
+    opts:
+      --watch, -w       runs check in watch mode
+
+
+  upload -------------- uploads a pipeline
+    args: 
+      <pipeline-name>   name of the pipeline
+      <file-path>       path to the Makefile
+    opts:
+      --run, -r         run the pipeline right after uploading it
+      --watch, -w       used along with --run, runs check in watch mode
+
+
+  list ---------------- lists all pipelines
+
+
+  check --------------- displays status of specified run
+    args:
+      <run-id>
+    opts:
+      --watch, -w       watch mode
+      
+
+Usage: 
+  yaci <command> <args>
+
+Use "yaci --help" to print this help
+
+Examples:
+  yaci upload staging ./pipelines/staging
+  yaci run staging -w
