@@ -1,10 +1,11 @@
 const fs = require('fs')
+const path = require('path')
 
-const help = fs.readFileSync('./utils/help.txt', 'utf8')
+const help = fs.readFileSync(path.join(__dirname, 'utils', 'help.txt'), 'utf8')
 
-class CLI {
+module.exports = class CLI {
   static main() {
-    const [bin, program, command, ...args] = process.argv
+    const [command, ...args] = process.argv.slice(2)
     
     switch (command) {
       case 'run':
@@ -61,15 +62,13 @@ class CLI {
     console.log(help)
   }
 
-  static debug() {
-    const [bin, program, command, ...args] = process.argv
-    console.log(`Command: ${command}`)
-    process.stdout.write("Arguments: ")
-    args.forEach((arg, i) => {
-      process.stdout.write(`${i + 1}:<${arg}> `)
-    })
-    console.log("")
-  }
+  // static debug() {
+  //   const [command, ...args] =  process.argv.slice(2)
+  //   console.log(`Command: ${command}`)
+  //   process.stdout.write("Arguments: ")
+  //   args.forEach((arg, i) => {
+  //     process.stdout.write(`${i + 1}:<${arg}> `)
+  //   })
+  //   console.log("")
+  // }
 }
-
-CLI.main()

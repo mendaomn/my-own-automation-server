@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const { create } = require('../src/utils/db')
+const { create } = require('../src/server/utils/db')
 
 function getSuccessMakefile() {
   const SUCCESS_MAKEFILE_PATH = path.join(__dirname, 'Makefile-success')
