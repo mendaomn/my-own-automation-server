@@ -29,10 +29,18 @@ class CLI {
     } 
   }
 
+  /**
+   * 
+   * @param {string[]} args
+   */
   static run([pipelineName]) {
     console.log("Should run pipeline:", pipelineName)
   }
 
+  /**
+   * 
+   * @param {string[]} args
+   */
   static upload([pipelineName, filePath]) {
     console.log("Should upload:", pipelineName, filePath)
   }
@@ -41,6 +49,10 @@ class CLI {
     console.log("Should list all pipelines")
   }
 
+  /**
+   * 
+   * @param {string[]} args
+   */
   static check([runID]) {
     console.log("Should display status of run with id:", runID)
   }

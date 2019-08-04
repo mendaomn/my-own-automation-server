@@ -4,7 +4,6 @@ const {execSync} = require('child_process')
 
 const generate = require('./generate')
 
-
 async function run(fileContent) {
   const TMP_FILE_LOCATION = path.join(__dirname, `Makefile-${generate.id()}`)
   fs.writeFileSync(TMP_FILE_LOCATION, fileContent)

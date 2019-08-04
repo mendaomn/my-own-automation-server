@@ -1,5 +1,5 @@
-const { create, getByName, ...dbUtility } = require('../utils/db')
-const { run } = require('../utils/make')
+const { create, getByName } = require('../utils/db')
+const { run } = require('../utils/make')
 
 const db = create('executions')
 
